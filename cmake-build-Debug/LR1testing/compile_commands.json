@@ -1,0 +1,7 @@
+[
+{
+  "directory": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR1testing",
+  "command": "C:\\TDM-GCC-64\\bin\\g++.exe   @CMakeFiles/LR1testing.dir/includes_CXX.rsp   -g  -g -g -o CMakeFiles\\LR1testing.dir\\main.cpp.obj -c C:\\Users\\FLARTY\\Desktop\\Programs\\Semester_4\\AaDS\\LR1testing\\main.cpp",
+  "file": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/LR1testing/main.cpp"
+}
+]

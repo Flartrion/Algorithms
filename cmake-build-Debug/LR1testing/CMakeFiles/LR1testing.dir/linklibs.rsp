@@ -1,0 +1,1 @@
+ C:/UnitTest++/lib/libUnitTest++.a C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/LR1testing/../cmake-build-Debug/output/libLR1test.a -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

@@ -1,0 +1,2 @@
+C:\TDM-GCC-64\x86_64-w64-mingw32\bin\ar.exe qc C:\Users\FLARTY\Desktop\Programs\Semester_4\AaDS\cmake-build-Debug\output\libLR1Test.a  CMakeFiles/LR1Test.dir/main.cpp.obj
+C:\TDM-GCC-64\x86_64-w64-mingw32\bin\ranlib.exe C:\Users\FLARTY\Desktop\Programs\Semester_4\AaDS\cmake-build-Debug\output\libLR1Test.a
