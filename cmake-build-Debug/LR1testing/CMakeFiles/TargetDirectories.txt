@@ -1,3 +1,0 @@
-C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR1testing/CMakeFiles/LR1testing.dir
-C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR1testing/CMakeFiles/edit_cache.dir
-C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR1testing/CMakeFiles/rebuild_cache.dir
