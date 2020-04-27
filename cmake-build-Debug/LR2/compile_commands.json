@@ -1,0 +1,12 @@
+[
+{
+  "directory": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR2",
+  "command": "C:\\TDM-GCC-64\\bin\\g++.exe      -g -O0 -Wall  -g -O0 -Wall -o CMakeFiles\\LR2.dir\\main.cpp.obj -c C:\\Users\\FLARTY\\Desktop\\Programs\\Semester_4\\AaDS\\LR2\\main.cpp",
+  "file": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/LR2/main.cpp"
+},
+{
+  "directory": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/cmake-build-Debug/LR2",
+  "command": "C:\\TDM-GCC-64\\bin\\g++.exe      -g -O0 -Wall  -g -O0 -Wall -o CMakeFiles\\LR2lib.dir\\main.cpp.obj -c C:\\Users\\FLARTY\\Desktop\\Programs\\Semester_4\\AaDS\\LR2\\main.cpp",
+  "file": "C:/Users/FLARTY/Desktop/Programs/Semester_4/AaDS/LR2/main.cpp"
+}
+]
