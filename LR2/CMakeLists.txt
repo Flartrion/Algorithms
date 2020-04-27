@@ -77,7 +77,7 @@ target_link_libraries(LR2 ${LINK_OPTIONS})
 
 
 #{{{{ User Code 3
-add_library(LR2lib ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
-target_link_libraries(LR2lib ${LINK_OPTIONS})
+add_library(LR2Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+target_link_libraries(LR2Test ${LINK_OPTIONS})
 #}}}}
 
