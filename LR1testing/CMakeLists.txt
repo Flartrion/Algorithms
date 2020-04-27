@@ -33,7 +33,7 @@ ${CMAKE_CURRENT_LIST_DIR}/../LR1
 #}}}}
 
 include_directories(
-    C:/UnitTest++/include/
+    ${WORKSPACE_PATH}/UnitTest++/include
 
 )
 
@@ -49,7 +49,7 @@ if(WIN32)
 endif(WIN32)
 
 # Library path
-set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} -LC:/UnitTest++/lib ")
+set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} -L${Workspace_Path}/UnitTest++/lib ")
 
 # Define the CXX sources
 set ( CXX_SRCS
@@ -76,7 +76,7 @@ add_executable(LR1testing ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
 target_link_libraries(LR1testing ${LINK_OPTIONS})
 
 target_link_libraries(LR1testing
-    C:/UnitTest++/lib/libUnitTest++.a
+    ${Workspace_Path}/UnitTest++/lib/libUnitTest++.a
 )
 
 
