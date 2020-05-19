@@ -1,6 +1,6 @@
 #include <iostream>
 #include <fstream>
-#include "CharList.h"
+#include "CharList.hpp"
 #include "Map.hpp"
 
 int main () {

@@ -1,6 +1,12 @@
 #include <stdexcept>
 #include <iostream>
-#include "CharList.h"
+#include "CharList.hpp"
+
+CharListEl::~CharListEl() {
+}
+
+CharListEl::CharListEl() {
+}
 
 bool CharListEl::operator> (CharListEl other) {
 	if (weight_ > other.weight_) return true;
@@ -23,7 +29,19 @@ void CharList::goNext () {
 }
 
 CharList::CharList() {
+}
 
+CharList::~CharList() {
+	if (first_) {
+		goFirst();
+		CharListEl* temp;
+
+		while (current_) {
+			temp = current_;
+			goNext();
+			delete temp;
+		}
+	}
 }
 
 CharListEl* CharList::operator[] (int where) {

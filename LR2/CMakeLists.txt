@@ -53,6 +53,7 @@ set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} ")
 
 # Define the CXX sources
 set ( CXX_SRCS
+    ${CMAKE_CURRENT_LIST_DIR}/ShannonFanoNode.cpp
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
     ${CMAKE_CURRENT_LIST_DIR}/CharList.cpp
 )

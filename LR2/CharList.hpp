@@ -1,11 +1,14 @@
+#pragma once
 class CharListEl {
 public:
+	CharListEl();
+	~CharListEl();
 	char s_ = 0;
 	int weight_ = 0;
 	CharListEl* next_ = 0;
-	
+
 	bool operator> (CharListEl other);
-	
+
 	bool operator< (CharListEl other);
 };
 
@@ -15,12 +18,16 @@ protected:
 	int currentPlace_ = 0, length_ = 0;
 
 	void goFirst ();
+
 	void goNext ();
+
 	void quicksort (CharListEl**, int, int);
+
 	void recount();
 
 public:
 	CharList();
+	~CharList();
 
 	void sort();
 
