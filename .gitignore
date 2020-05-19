@@ -1,5 +1,4 @@
 .codelite
-cmake-build-Debug/LR*
-cmake-build-Debug/output/lib*
+cmake-build-Debug/
 */*.project
 AaDS.workspace

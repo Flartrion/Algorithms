@@ -1,3 +1,4 @@
 Source files lie beneath according LR* folders.
+txt file used for testing in LR2 is located together with its source files.
 
-Windows-compiled .exe files lie in cmake-build-Debug/output, named accordingly
+Everything should be easily compilable with usage of CMake.

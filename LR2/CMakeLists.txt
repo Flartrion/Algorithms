@@ -36,6 +36,7 @@ include_directories(
 
 
 # Compiler options
+add_definitions(-std=c++17)
 add_definitions(-g)
 add_definitions(-O0)
 add_definitions(-Wall)
@@ -52,13 +53,13 @@ set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} ")
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_CURRENT_LIST_DIR}/CharList.cpp
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/CharList.cpp
 )
 
 set_source_files_properties(
     ${CXX_SRCS} PROPERTIES COMPILE_FLAGS 
-    " -g -O0 -Wall")
+    " -std=c++17 -g -O0 -Wall")
 
 if(WIN32)
     enable_language(RC)
@@ -78,7 +79,7 @@ target_link_libraries(LR2 ${LINK_OPTIONS})
 
 
 #{{{{ User Code 3
-add_library(LR2Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
-target_link_libraries(LR2Test ${LINK_OPTIONS})
+#add_library(LR2Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+#target_link_libraries(LR2Test ${LINK_OPTIONS})
 #}}}}
 
