@@ -28,10 +28,16 @@ protected:
 public:
 	CharList();
 	~CharList();
+	
+	CharList* split (int where);  // Makes targeted element new head of returned list, thus splitting them.
 
 	void sort();
+	
+	int getLength();
+	
+	int totalWeight();
 
-	CharList* split (int where);  // Makes targeted element new head of returned list, thus splitting them.
+	CharList* equalSplit(); // Splits list evenly by counting weights.
 
 	CharListEl* operator[] (int where); // Returns single element of the list. A-la array.
 

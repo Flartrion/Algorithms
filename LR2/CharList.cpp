@@ -54,10 +54,10 @@ CharListEl* CharList::operator[] (int where) {
 			return current_;
 		} else if (currentPlace_ > where) {
 			goFirst ();
-		} else {
-			while (currentPlace_ != where)
-				goNext ();
 		}
+
+		while (currentPlace_ != where)
+			goNext ();
 
 		return current_;
 	}
@@ -179,4 +179,39 @@ void CharList::sort() {
 
 	current_->next_=0;
 	delete[] arrayToSort;
+}
+
+int CharList::totalWeight() {
+	int weight=0;
+	goFirst();
+
+	while (current_) {
+		weight+=current_->weight_;
+		goNext();
+	}
+
+	return weight;
+}
+
+
+CharList* CharList::equalSplit() {
+	int weightLeft=0, weightRight=totalWeight(), i=0;
+
+
+
+	goFirst();
+
+	while (weightLeft<weightRight&&current_) {
+		weightRight-=current_->weight_;
+		weightLeft+=current_->weight_;
+		goNext();
+		i++;
+		//std::cout<<weightLeft<<" "<<weightRight<<" "<<i<<'\n';
+	}
+
+	return split (i);
+}
+
+int CharList::getLength() {
+	return length_;
 }
