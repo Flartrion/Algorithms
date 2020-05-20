@@ -49,7 +49,7 @@ int main () {
 		}
 		
 		std::cout<<"Unencoded: "<<infoSum<<"\nEncoded: "<<infoCoded<<'\n';
-		std::cout<<"Space saved: "<<(100- (float) infoCoded/(float) infoSum * 100);
+		std::cout<<"Storage saved: "<<(100- (float) infoCoded/(float) infoSum * 100)<<'%';
 		
 		out.close();
 		in.close();
