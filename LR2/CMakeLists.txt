@@ -53,9 +53,9 @@ set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} ")
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_CURRENT_LIST_DIR}/ShannonFanoNode.cpp
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
     ${CMAKE_CURRENT_LIST_DIR}/CharList.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/ShannonFanoNode.cpp
 )
 
 set_source_files_properties(
@@ -80,7 +80,7 @@ target_link_libraries(LR2 ${LINK_OPTIONS})
 
 
 #{{{{ User Code 3
-#add_library(LR2Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
-#target_link_libraries(LR2Test ${LINK_OPTIONS})
+add_library(LR2Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+target_link_libraries(LR2Test ${LINK_OPTIONS})
 #}}}}
 

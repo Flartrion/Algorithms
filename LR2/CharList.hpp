@@ -1,4 +1,5 @@
 #pragma once
+
 class CharListEl {
 public:
 	CharListEl();
@@ -28,18 +29,26 @@ protected:
 public:
 	CharList();
 	~CharList();
-	
+
 	CharList* split (int where);  // Makes targeted element new head of returned list, thus splitting them.
 
 	void sort();
 	
+	void clear();
+
 	int getLength();
-	
+
+	int getFirstWeight();
+
+	char getFirstSymbol();
+
 	int totalWeight();
 
 	CharList* equalSplit(); // Splits list evenly by counting weights.
 
 	CharListEl* operator[] (int where); // Returns single element of the list. A-la array.
+
+	CharListEl* at (int where); // Returns single element of the list. A-la array.
 
 	void add (char s);  // Find targeted symbol and create new element or add to which is already here.
 

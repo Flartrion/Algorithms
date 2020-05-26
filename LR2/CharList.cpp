@@ -44,7 +44,42 @@ CharList::~CharList() {
 	}
 }
 
+void CharList::clear() {
+	if (first_) {
+		goFirst();
+		CharListEl* temp;
+
+		while (current_) {
+			temp = current_;
+			goNext();
+			delete temp;
+		}
+	}
+
+	first_ = last_ = current_ = 0; 
+	currentPlace_ = length_ = 0;
+}
+
 CharListEl* CharList::operator[] (int where) {
+	if (!first_) {
+		throw std::out_of_range ("CharList[] - accessing empty list");
+	} else if (where + 1 > length_) {
+		throw std::out_of_range ("CharList[] - out of range");
+	} else {
+		if (currentPlace_ == where) {
+			return current_;
+		} else if (currentPlace_ > where) {
+			goFirst ();
+		}
+
+		while (currentPlace_ != where)
+			goNext ();
+
+		return current_;
+	}
+}
+
+CharListEl* CharList::at (int where) {
 	if (!first_) {
 		throw std::out_of_range ("CharList[] - accessing empty list");
 	} else if (where + 1 > length_) {
@@ -214,4 +249,16 @@ CharList* CharList::equalSplit() {
 
 int CharList::getLength() {
 	return length_;
+}
+
+int CharList::getFirstWeight() {
+	if (first_)
+		return first_->weight_;
+	else throw std::out_of_range ("getFirstWeight - no element");
+}
+
+char CharList::getFirstSymbol() {
+	if (first_)
+		return first_->s_;
+	else throw std::out_of_range ("getFirstSymbol - no element");
 }

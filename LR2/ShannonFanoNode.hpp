@@ -1,6 +1,7 @@
 #pragma once
 #include "CharList.hpp"
 #include "Map.hpp"
+#include <iomanip>
 
 struct BinaryHolder {
 	int length_=0;
@@ -16,7 +17,7 @@ protected:
 
 	int height (ShannonFanoNode* node, int curHeight);
 
-	void traverse(ShannonFanoNode* node, int curHeight, char* code, Map<char, BinaryHolder>* output);
+	void traverse(ShannonFanoNode* node, int curHeight, char* code, Map<char, BinaryHolder>* output, bool displayTable);
 public:
 	ShannonFanoNode();
 	ShannonFanoNode (CharList*);
@@ -32,5 +33,5 @@ public:
 
 	void beginSplitting();
 
-	Map<char, BinaryHolder>* generateMap();
+	Map<char, BinaryHolder>* generateMap(bool displayTable);
 };
