@@ -24,7 +24,7 @@ protected:
 
 	void quicksort (CharListEl**, int, int);
 
-	void recount();
+	void recount(); // Updates length after splitting.
 
 public:
 	CharList();
@@ -32,7 +32,7 @@ public:
 
 	CharList* split (int where);  // Makes targeted element new head of returned list, thus splitting them.
 
-	void sort();
+	void sort(); // Sorts in sequence of weight reducement
 	
 	void clear();
 
@@ -52,5 +52,5 @@ public:
 
 	void add (char s);  // Find targeted symbol and create new element or add to which is already here.
 
-	void count(); // Just for self-control
+	void count(); // Just for self-control - displays contents along with their weights.
 };

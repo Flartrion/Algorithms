@@ -82,6 +82,6 @@ target_link_libraries(LR1testing
 
 
 #{{{{ User Code 3
-target_link_libraries(LR1testing ${CMAKE_CURRENT_LIST_DIR}/../cmake-build-Debug/output/libLR1test.a)
+target_link_libraries(LR1testing ${CL_OUTPUT_DIRECTORY}/libLR1test.a)
 #}}}}
 

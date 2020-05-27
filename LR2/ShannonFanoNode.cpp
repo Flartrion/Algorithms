@@ -94,7 +94,7 @@ void ShannonFanoNode::traverse (ShannonFanoNode* node, int curHeight, char* code
 			         std::setw (20) <<std::left<<newMapInfoHolder->binary_<<'\n';
 		}
 
-		output->insert ( (* (node->info_)) [0]->s_,*newMapInfoHolder);
+		output->insert ( node->getInfo()->getFirstSymbol(),*newMapInfoHolder);
 	}
 }
 
