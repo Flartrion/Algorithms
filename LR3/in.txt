@@ -1,0 +1,7 @@
+City-1;City-17;1;N/A
+City-17;City-8;15;N/A
+City-8;City-1;4;44
+City-5;City-8;3;N/A
+City-2;City-5;5;N/A
+City-1;City-5;20;N/A
+City-1;City-2;6;N/A
