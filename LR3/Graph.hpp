@@ -35,12 +35,13 @@ public:
 	void input();
 	
 	/*!
-	 * \brief Just here to output matrice.
+	 * \brief Just here to output in console matrice for checking and such.
 	 */
 	void checkMatrice();
 	
 	/*!
-	 * \brief Passes control to CityList.
+	 * \brief Displays cities in appearance order.
+	 * Actually just passes control to CityList.
 	 */
 	void displayCities();
 	

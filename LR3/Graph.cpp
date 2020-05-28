@@ -2,7 +2,6 @@
 #include <fstream>
 #include <stdexcept>
 #include <iostream>
-#include <iomanip>
 #include <limits>
 
 Graph::Graph() {
@@ -35,7 +34,7 @@ void Graph::input() {
 	naString.pop_back();
 	int stage = 0; // Goes from 0 to 3 as there are 4 fields in the presumed input file.
 	int pos[2]; // Just here to hold city1 and city2.
-	int number;
+	int number; // Is here to hold travelling fee.
 	
 	if (in.good()) {
 		cities_ = new CityList;
@@ -128,6 +127,8 @@ void Graph::input() {
 			}
 		}
 		
+		in.close();
+		
 		fillEdgeList();
 	} else {
 		throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
@@ -202,9 +203,9 @@ void Graph::solveFordBellman (int from) {
 			}
 			
 			if (!any)  {
-				for (int i = 0; i < cities_->getLength(); i++) {
-					std::cout << prev_[i] << ' ' << distance_[i] << '\n';
-				}
+				//for (int i = 0; i < cities_->getLength(); i++) {
+				//	std::cout << prev_[i] << ' ' << distance_[i] << '\n';
+				//}
 				
 				break;
 			}
@@ -223,11 +224,13 @@ void Graph::solve (int from, int to) {
 	
 	if (distance_[to] != INT_MAX) {
 		way[0] = current;
+		
 		while (current != -1) {
 			way[i] = current;
 			current = prev_[current];
 			i++;
 		}
+		
 		i--;
 		std::cout << "Cheapest flight: " << distance_[to] << ", with the path:\n";
 		
@@ -240,6 +243,7 @@ void Graph::solve (int from, int to) {
 			
 			i--;
 		}
+		std::cout <<'\n';
 	} else {
 		std::cout << "\nNo such way exists!";
 	}

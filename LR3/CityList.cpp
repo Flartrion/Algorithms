@@ -1,6 +1,7 @@
 #include "CityList.hpp"
-#include "stdexcept"
+#include <stdexcept>
 #include <iostream>
+#include <iomanip>
 
 CityList::CityList() {
 }
@@ -126,7 +127,8 @@ int CityList::getLength() {
 }
 
 void CityList::display() {
+	std::cout<<"ID|City name\n";
 	for (int i = 0; i < length_; i++) {
-		std::cout << i << "   " << at (i) << '\n';
+		std::cout << std::left << std::setw (2) << i << "|" << std::left << at (i) << '\n';
 	}
 }
