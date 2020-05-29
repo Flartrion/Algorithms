@@ -8,7 +8,7 @@ int main () {
 	int a, b;
 	
 	try {
-		solver->input();
+		solver->input("in.txt");
 	} catch (std::exception err) {
 		std::cout << err.what();
 		std::cin.ignore();

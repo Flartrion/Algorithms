@@ -27,8 +27,8 @@ Graph::~Graph() {
 	}
 }
 
-void Graph::input() {
-	std::fstream in ("in.txt", std::ios::in);
+void Graph::input(std::string inFile) {
+	std::fstream in (inFile, std::ios::in);
 	std::string tempName;
 	std::string naString ("N/A"); // Just for comparison.
 	naString.pop_back();
@@ -74,7 +74,7 @@ void Graph::input() {
 		for (int i = 0; i < cities_->getLength(); i++)
 			matrice_[i][i] = 0;
 			
-		in.open ("in.txt", std::ios::in);
+		in.open (inFile, std::ios::in);
 		
 		while (!in.eof()) { // Now filling in the matrice.
 			if (stage < 2) { // Which cities those are?
@@ -170,44 +170,45 @@ void Graph::fillEdgeList() {
 
 void Graph::solveFordBellman (int from) {
 	if (from >= cities_->getLength() || from < 0) throw std::invalid_argument ("Graph::solveFordBellman - received incorrect argument");
-	
-	if (lastSolutionFrom_ != from) {
-		if (!prev_) prev_ = new int[cities_->getLength()];
-		
-		if (!distance_) distance_ = new int[cities_->getLength()];
-		
-		for (int i = 0; i < cities_->getLength(); i++) {
-			prev_[i] = -1;
-			distance_[i] = INT_MAX;
-		}
-		
-		distance_[from] = 0;
-		
-		for (int j = 0; j < edgeListLength_; j++)
-			if (edgeList_[j].a == from) {
-				distance_[edgeList_[j].b] = edgeList_[j].cost;
-				prev_[edgeList_[j].b] = from;
+	else {
+		if (lastSolutionFrom_ != from) {
+			if (!prev_) prev_ = new int[cities_->getLength()];
+			
+			if (!distance_) distance_ = new int[cities_->getLength()];
+			
+			for (int i = 0; i < cities_->getLength(); i++) {
+				prev_[i] = -1;
+				distance_[i] = INT_MAX;
 			}
 			
+			distance_[from] = 0;
 			
-		while (true) {
-			bool any = false;
-			
-			for (int j = 0; j < edgeListLength_; j++) {
-				if (distance_[edgeList_[j].a] != INT_MAX)
-					if (distance_[edgeList_[j].b] > distance_[edgeList_[j].a] + edgeList_[j].cost) {
-						distance_[edgeList_[j].b] = distance_[edgeList_[j].a] + edgeList_[j].cost;
-						prev_[edgeList_[j].b] = edgeList_[j].a;
-						any = true;
-					}
-			}
-			
-			if (!any)  {
-				//for (int i = 0; i < cities_->getLength(); i++) {
-				//	std::cout << prev_[i] << ' ' << distance_[i] << '\n';
-				//}
+			for (int j = 0; j < edgeListLength_; j++)
+				if (edgeList_[j].a == from) {
+					distance_[edgeList_[j].b] = edgeList_[j].cost;
+					prev_[edgeList_[j].b] = from;
+				}
 				
-				break;
+				
+			while (true) {
+				bool any = false;
+				
+				for (int j = 0; j < edgeListLength_; j++) {
+					if (distance_[edgeList_[j].a] != INT_MAX)
+						if (distance_[edgeList_[j].b] > distance_[edgeList_[j].a] + edgeList_[j].cost) {
+							distance_[edgeList_[j].b] = distance_[edgeList_[j].a] + edgeList_[j].cost;
+							prev_[edgeList_[j].b] = edgeList_[j].a;
+							any = true;
+						}
+				}
+				
+				if (!any)  {
+					//for (int i = 0; i < cities_->getLength(); i++) {
+					//	std::cout << prev_[i] << ' ' << distance_[i] << '\n';
+					//}
+					
+					break;
+				}
 			}
 		}
 	}
@@ -216,36 +217,38 @@ void Graph::solveFordBellman (int from) {
 void Graph::solve (int from, int to) {
 
 	if (to > cities_->getLength() || to < 0) throw std::invalid_argument ("Graph::solve - received incorrect argument");
-	
-	solveFordBellman (from);
-	
-	int way[cities_->getLength()];
-	int i = 0, current = to;
-	
-	if (distance_[to] != INT_MAX) {
-		way[0] = current;
+	else {
+		solveFordBellman (from);
 		
-		while (current != -1) {
-			way[i] = current;
-			current = prev_[current];
-			i++;
-		}
+		int way[cities_->getLength()];
+		int i = 0, current = to;
 		
-		i--;
-		std::cout << "Cheapest flight: " << distance_[to] << ", with the path:\n";
-		
-		while (i >= 0) {
-			std::cout << cities_->at (way[i]);
+		if (distance_[to] != INT_MAX) {
+			way[0] = current;
 			
-			if (i >= 1) {
-				std::cout << " -> ";
+			while (current != -1) {
+				way[i] = current;
+				current = prev_[current];
+				i++;
 			}
 			
 			i--;
+			std::cout << "Cheapest flight: " << distance_[to] << ", with the path:\n";
+			
+			while (i >= 0) {
+				std::cout << cities_->at (way[i]);
+				
+				if (i >= 1) {
+					std::cout << " -> ";
+				}
+				
+				i--;
+			}
+			
+			std::cout << '\n';
+		} else {
+			std::cout << "\nNo such way exists!";
 		}
-		std::cout <<'\n';
-	} else {
-		std::cout << "\nNo such way exists!";
 	}
 }
 

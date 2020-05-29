@@ -11,7 +11,7 @@ protected:
 	
 	Edge* edgeList_ = 0; // Will collect edges. Reusable, thus is being held here.
 	int edgeListLength_ = 0; // Number of edges.
-	int lastSolutionFrom_ = -1; // Optimization purpose.
+	int lastSolutionFrom_ = -1; // Optimization purpose. So as not to calculate ways again if starting point doesn't change.
 	int *prev_ = 0; // Holds previous node for every shortest path to every node.
 	int *distance_ = 0; // Holds shortest pathes to every node.
 	
@@ -31,8 +31,9 @@ public:
 	
 	/*!
 	 * \brief Input stuff from "in.txt"
+	 * \param Name of the file to input from.
 	 */
-	void input();
+	void input(std::string inFile);
 	
 	/*!
 	 * \brief Just here to output in console matrice for checking and such.
@@ -41,15 +42,14 @@ public:
 	
 	/*!
 	 * \brief Displays cities in appearance order.
-	 * Actually just passes control to CityList.
+	 * Actually just passes control to CityList inside.
 	 */
 	void displayCities();
 	
 	/*!
-	 * \brief Traces way back from to to from.
+	 * \brief Traces way back from "to" to "from".
 	 * \param from
 	 * \param to
 	 */
-	
 	void solve (int from, int to);
 };

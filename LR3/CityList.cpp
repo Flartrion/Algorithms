@@ -29,6 +29,8 @@ CityList::City::City (std::string name) : next_ (0), prev_ (0) {
 CityList::City::~City() {
 }
 
+
+
 CityList::City& CityList::City::setNext (City* next_) {
 	this->next_ = next_;
 	return *this;
@@ -47,8 +49,6 @@ std::string CityList::City::getName() {
 	return name_;
 }
 
-
-
 bool CityList::City::compare (std::string otherCity) {
 	if (name_.compare (otherCity)) return false;
 	else return true;
@@ -61,10 +61,13 @@ void CityList::goFirst() {
 	current_ = first_;
 }
 
+
+
 void CityList::goLast() {
 	currentPos_ = length_ - 1;
 	current_ = last_;
 }
+
 
 
 void CityList::goNext() {
@@ -72,10 +75,14 @@ void CityList::goNext() {
 	current_ = current_->getNext();
 }
 
+
+
 void CityList::goPrev() {
 	currentPos_--;
 	current_ = current_->getPrev();
 }
+
+
 
 void CityList::pushBack (std::string name) {
 	if (first_) {
@@ -91,11 +98,15 @@ void CityList::pushBack (std::string name) {
 	length_++;
 }
 
+
+
 void CityList::addUnique (std::string name) {
 	if (find (name) == -1) {
 		pushBack (name);
 	}
 }
+
+
 
 int CityList::find (std::string name) {
 	goFirst();
@@ -108,26 +119,35 @@ int CityList::find (std::string name) {
 	return -1;
 }
 
+
+
 std::string CityList::at (int where) {
-	if (where > length_) throw std::out_of_range ("CityList::at - accessing nonexistent element");
-	
-	if (!length_) throw std::out_of_range ("CityList:at - accessing empty list");
-	
-	if (currentPos_ > where) {
-		while (currentPos_ != where) goPrev();
-	} else {
-		while (currentPos_ != where) goNext();
+	if (where >= length_) throw std::out_of_range ("CityList::at - accessing nonexistent element");
+	else if (!length_) throw std::out_of_range ("CityList::at - accessing empty list");
+	else if (where < 0) throw std::invalid_argument("CityList::at - index less than 0");
+	else {
+		if (currentPos_ > where) {
+			while (currentPos_ != where) goPrev();
+		} else {
+			while (currentPos_ != where) goNext();
+		}
+		
+		return current_->getName();
+		
 	}
-	
-	return current_->getName();
 }
+
+
 
 int CityList::getLength() {
 	return length_;
 }
 
+
+
 void CityList::display() {
-	std::cout<<"ID|City name\n";
+	std::cout << "ID|City name\n";
+	
 	for (int i = 0; i < length_; i++) {
 		std::cout << std::left << std::setw (2) << i << "|" << std::left << at (i) << '\n';
 	}

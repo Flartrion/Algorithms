@@ -53,7 +53,7 @@ public:
 	void addUnique (std::string name);
 	
 	/*!
-	* \brief Searches position of the city by name
+	* \brief Searches position of the city by the name in argument
 	* \param name
 	* \return position if exists, -1 if not.
 	*/

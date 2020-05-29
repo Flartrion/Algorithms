@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 2.8.11)
 
 # Project name
-project(LR3)
+project(LR3testing)
 
 # This setting is useful for providing JSON file used by CodeLite for code completion
 set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
@@ -21,7 +21,7 @@ set(CONFIGURATION_NAME "Debug")
 
 # Top project
 # Define some variables
-set(PROJECT_LR3_PATH "${CMAKE_CURRENT_LIST_DIR}")
+set(PROJECT_LR3testing_PATH "${CMAKE_CURRENT_LIST_DIR}")
 set(WORKSPACE_PATH "${CMAKE_CURRENT_LIST_DIR}/..")
 
 
@@ -31,6 +31,7 @@ set(WORKSPACE_PATH "${CMAKE_CURRENT_LIST_DIR}/..")
 #}}}}
 
 include_directories(
+    ${WORKSPACE_PATH}/UnitTest++/include
 
 )
 
@@ -38,8 +39,6 @@ include_directories(
 # Compiler options
 add_definitions(-std=c++17)
 add_definitions(-g)
-add_definitions(-O0)
-add_definitions(-Wall)
 
 # Linker options
 
@@ -49,18 +48,18 @@ if(WIN32)
 endif(WIN32)
 
 # Library path
-set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} ")
+set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} -L${Workspace_Path}/UnitTest++/lib ")
 
 # Define the CXX sources
 set ( CXX_SRCS
+    ${CMAKE_CURRENT_LIST_DIR}/GraphTests.cpp
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/CityList.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/Graph.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/CityListTest.cpp
 )
 
 set_source_files_properties(
     ${CXX_SRCS} PROPERTIES COMPILE_FLAGS 
-    " -std=c++17 -g -O0 -Wall")
+    " -std=c++17 -g")
 
 if(WIN32)
     enable_language(RC)
@@ -74,13 +73,16 @@ endif(WIN32)
 # Place your code here
 #}}}}
 
-add_executable(LR3 ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
-target_link_libraries(LR3 ${LINK_OPTIONS})
+add_executable(LR3testing ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
+target_link_libraries(LR3testing ${LINK_OPTIONS})
+
+target_link_libraries(LR3testing
+    ${Workspace_Path}/UnitTest++/lib/libUnitTest++.a
+)
 
 
 
 #{{{{ User Code 3
-add_library(LR3Test ${RC_SRCS} ${CXX_SRCS} ${C_SRCS})
-target_link_libraries(LR3Test ${LINK_OPTIONS})
+target_link_libraries(LR3testing ${CL_OUTPUT_DIRECTORY}/libLR3Test.a)
 #}}}}
 
