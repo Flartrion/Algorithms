@@ -2,9 +2,9 @@
 #include "../LR3/Graph.hpp"
 
 TEST_FIXTURE (Graph, graph_input) {
-	CHECK_THROW (input ("corruptedNA.txt"), std::invalid_argument);
-	CHECK_THROW (input ("aaa.txt"), std::invalid_argument);
-	CHECK_THROW (input ("lackOfNumber.txt"), std::invalid_argument);
+	CHECK_THROW (input ("corruptedNA.txt"), std::invalid_argument); // N/A lacks it's A
+	CHECK_THROW (input ("aaa.txt"), std::invalid_argument); // Nonexistant file
+	CHECK_THROW (input ("lackOfNumber.txt"), std::invalid_argument); // Price is skipped altogether.
 	input ("matriceTest.txt");
 	
 	CHECK_EQUAL (0, matrice_[0][0] + matrice_[1][1] + matrice_[2][2]);
@@ -17,13 +17,13 @@ TEST_FIXTURE (Graph, graph_input) {
 }
 
 TEST_FIXTURE (Graph, graph_solving) {
-	input ("matriceTest.txt"); // since it's pretty suitable. Why not?
+	input ("matriceTest.txt"); // since it's pretty suitable, albeit too simple. Why not, though?
 	
-	solveFordBellman (2);
+	solveBellmanFord (2);
 	CHECK_EQUAL (1, prev_[0]);
 	CHECK_EQUAL (2, distance_[0]);
 	
-	solveFordBellman (0);
+	solveBellmanFord (0);
 	CHECK_EQUAL (1, prev_[2]);
 	CHECK_EQUAL (2, distance_[2]);
 }

@@ -6,7 +6,7 @@ struct Edge {
 
 class Graph {
 protected:
-	CityList* cities_ = 0; // Basically a name list to fill and forget until time cometh.
+	CityList* cities_ = 0; // A name list to fill and forget until the time cometh.
 	int** matrice_ = 0; // That's where all the routes will be stored.
 	
 	Edge* edgeList_ = 0; // Will collect edges. Reusable, thus is being held here.
@@ -24,7 +24,7 @@ protected:
 	 * \brief Solves system from the city of it's param
 	 * \param from
 	 */
-	void solveFordBellman (int from);
+	void solveBellmanFord (int from);
 public:
 	Graph();
 	~Graph();

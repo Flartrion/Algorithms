@@ -27,7 +27,7 @@ Graph::~Graph() {
 	}
 }
 
-void Graph::input(std::string inFile) {
+void Graph::input (std::string inFile) {
 	std::fstream in (inFile, std::ios::in);
 	std::string tempName;
 	std::string naString ("N/A"); // Just for comparison.
@@ -82,7 +82,9 @@ void Graph::input(std::string inFile) {
 					tempName.push_back (in.get());
 				}
 				
-				if (in.eof()) throw std::invalid_argument ("Graph::input - Provided file is incorrect!"); // Shouldn't happen after the first checking, but will leave it here anyway
+				if (in.eof()) throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
+				
+				// Shouldn't happen after the first checking, but will leave it here anyway
 				
 				tempName.pop_back();
 				pos[stage] = cities_->find (tempName);
@@ -168,8 +170,9 @@ void Graph::fillEdgeList() {
 		}
 }
 
-void Graph::solveFordBellman (int from) {
-	if (from >= cities_->getLength() || from < 0) throw std::invalid_argument ("Graph::solveFordBellman - received incorrect argument");
+void Graph::solveBellmanFord (int from) {
+	if (from >= cities_->getLength() || from < 0)
+		throw std::invalid_argument ("Graph::solveFordBellman - received incorrect argument");
 	else {
 		if (lastSolutionFrom_ != from) {
 			if (!prev_) prev_ = new int[cities_->getLength()];
@@ -216,9 +219,10 @@ void Graph::solveFordBellman (int from) {
 
 void Graph::solve (int from, int to) {
 
-	if (to > cities_->getLength() || to < 0) throw std::invalid_argument ("Graph::solve - received incorrect argument");
+	if (to > cities_->getLength() || to < 0)
+		throw std::invalid_argument ("Graph::solve - received incorrect argument");
 	else {
-		solveFordBellman (from);
+		solveBellmanFord (from);
 		
 		int way[cities_->getLength()];
 		int i = 0, current = to;
