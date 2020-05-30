@@ -8,9 +8,20 @@ Graph::Graph() {
 
 }
 
-Graph::~Graph() {
 
+Graph::~Graph() {
+	if (nodes_) {
+		for (int i = 0; i < nodes_->getLength(); i++) {
+			delete[] matrice_[i];
+			delete[] availableConductivity_[i];
+		}
+		
+		delete[] matrice_;
+		delete[] availableConductivity_;
+		delete nodes_;
+	}
 }
+
 
 void Graph::input (std::string inFile) {
 	std::fstream in (inFile, std::ios::in);
@@ -98,6 +109,7 @@ void Graph::input (std::string inFile) {
 	}
 }
 
+
 void Graph::checkMatrice() {
 	for (int i = 0; i < nodes_->getLength(); i++) {
 		for (int j = 0; j < nodes_->getLength(); j++) {
@@ -110,11 +122,9 @@ void Graph::checkMatrice() {
 }
 
 
-
-void Graph::displayCities() {
+void Graph::displayNodes() {
 	nodes_->display();
 }
-
 
 
 void Graph::matriceInit() {
@@ -145,29 +155,67 @@ void Graph::matriceInit() {
 }
 
 
-
 Graph::IteratorByWidth* Graph::initEdmondsKarpIterator() {
-	return new Graph::IteratorByWidth (nodes_->getLength(), matrice_, start_);
+	return new Graph::IteratorByWidth (nodes_->getLength(), availableConductivity_, start_);
+}
+
+
+int Graph::solve() {
+
 }
 
 //
-// FROM HERE ON THERE ARE ITERATOR STUFF
+// FROM HERE ON LIES ITERATOR STUFF
 //
 
 Graph::IteratorByWidth::IteratorByWidth (int length, int** routes, int start) {
-	matrice_ = new int*[length];
+	routes_ = routes;
 	queue_ = new int[length];
 	prev_ = new int[length];
 	visited_ = new bool[length];
 	
 	length_ = length;
 	
-	/*for (int i = 0; i < length; i++) {
-		matrice_[i] = new int[length];
 	
-		for (int j = 0; j < length; j++)
-			matrice_[i][j] = routes[i][j];
-	}*/
+	for (int i = 0; i < length; i++) {
+		queue_[i] = prev_[i] = -1;
+		visited_[i] = false;
+	}
 	
 	queue_[0] = start;
+}
+
+
+int* Graph::IteratorByWidth::getCurrentRoutes() {
+	int *returnArray = new int[length_];
+	
+	for (int i = 0; i < length_; i++)
+		returnArray[i] = prev_[i];
+		
+	return returnArray;
+}
+
+int Graph::IteratorByWidth::step() {
+	current_++;
+	
+	while (current_ < length_ && queue_[queueCurrent_] != -1) {
+		if (routes_[queue_[queueCurrent_]][current_] == 0)
+			current_++;
+		else {
+			if (visited_[current_]) current_++;
+			else {
+				visited_[current_] = true;
+				queue_[queueLength_++] = current_;
+				prev_[current_] = queue_[queueCurrent_];
+				return current_;
+			}
+		}
+		
+		if (current_ == length_) {
+			queueCurrent_++;
+			current_ = 0;
+		}
+	}
+	
+	return -1;
 }

@@ -7,11 +7,12 @@ int main () {
 	
 	try {
 		solver->input ("in.txt");
-		solver->initEdmondsKarpIterator();
+//		solver->solve();
 	} catch (std::exception err) {
 		std::cout << err.what();
 	}
 	
 	std::cin.ignore ();
+	delete solver;
 	return 0;
 }

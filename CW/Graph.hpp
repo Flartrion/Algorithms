@@ -1,16 +1,22 @@
 #pragma once
 #include "NodeList.hpp"
-#include "stdexcept"
+#include <stdexcept>
 
 class Graph {
 protected:
+	class IteratorByWidth;
+	
 	NodeList* nodes_ = 0; // A name list to fill and forget until the time cometh.
 	int** matrice_ = 0; // That's where all the routes will be stored.
 	int** availableConductivity_ = 0;
 	
 	int start_ = -1, terminator_ = -1; // S and T, kept as their id's in node list.
 	
-	class IteratorByWidth;
+	
+	/*!
+	 * \brief Creates square matrices in size of nodes_ length in matrice_ and availableConductivity_ fields.
+	 */
+	void matriceInit();
 public:
 	Graph();
 	~Graph();
@@ -27,11 +33,6 @@ public:
 	void checkMatrice();
 	
 	/*!
-	 * \brief Creates square matrices in size of nodes_ length in matrice_ and availableConductivity_ fields.
-	 */
-	void matriceInit();
-	
-	/*!
 	 * \brief Will use availableConductivity_ to create an iterator.
 	 */
 	IteratorByWidth* initEdmondsKarpIterator();
@@ -40,20 +41,27 @@ public:
 	 * \brief Displays cities in appearance order.
 	 * Actually just passes control to NodeList inside.
 	 */
-	void displayCities();
+	void displayNodes();
+	
+	/*!
+	 * \brief Will find the maximal flow using Edmonds-Karp algorithm.
+	 * \return Maximal flow.
+	 */
+	int solve();
 };
 
 class Graph::IteratorByWidth {
 protected:
-	int** matrice_ = 0; // Needs info about possible paths.
+	int** routes_ = 0;
 	
 	int length_ = 0; // This one here is variable that defines sizes of everything else.
 	
 	int* queue_ = 0; // Isn't worth implementing an actual queue data structure. This will do nicely.
 	bool* visited_ = 0; // To evade troubles with cycling and such.
 	int* prev_ = 0; // To trace chosen path back to start.
-	int current_ = 0; // Respresents current place in matrix. So as not to hit same edges twice.
-	int currentQ_ = 0; // Position in queue.
+	int current_ = -1; // Respresents current place in matrix. So as not to hit same edges twice.
+	int queueCurrent_ = 0; // Position in queue.
+	int queueLength_ = 1; // As it states.
 public:
 
 	/*!
