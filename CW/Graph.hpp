@@ -17,6 +17,11 @@ protected:
 	 * \brief Creates square matrices in size of nodes_ length in matrice_ and availableConductivity_ fields.
 	 */
 	void matriceInit();
+	
+	/*!
+	 * \brief Will use availableConductivity_ to create an iterator.
+	 */
+	IteratorByWidth* initEdmondsKarpIterator();
 public:
 	Graph();
 	~Graph();
@@ -31,11 +36,6 @@ public:
 	 * \brief Just here to output matrice in console for checking and such.
 	 */
 	void checkMatrice();
-	
-	/*!
-	 * \brief Will use availableConductivity_ to create an iterator.
-	 */
-	IteratorByWidth* initEdmondsKarpIterator();
 	
 	/*!
 	 * \brief Displays cities in appearance order.
