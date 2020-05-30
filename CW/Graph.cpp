@@ -91,6 +91,10 @@ void Graph::input (std::string inFile) {
 				
 				if (number >= 0 || afterChar != '\n') {
 					matrice_[position[0]][position[1]] = number;
+					
+					if (matrice_[position[1]][position[0]] && matrice_[position[1]][position[0]] != number)
+						throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
+						
 					stage = 0;
 				} else {
 					throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
@@ -194,6 +198,9 @@ int Graph::solve() {
 			while (parents[currentPos] != -1) {
 				availableConductivity_[parents[currentPos]][currentPos] -= minFlow;
 				
+				if (availableConductivity_[currentPos][parents[currentPos]])
+					availableConductivity_[currentPos][parents[currentPos]] -= minFlow;
+					
 				currentPos = parents[currentPos];
 			}
 			
