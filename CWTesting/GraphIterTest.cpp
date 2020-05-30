@@ -33,9 +33,7 @@ TEST_FIXTURE (Graph, TestIteratorByWidth_getCurrentRoutes) {
 	
 	IteratorByWidth* stepper = initEdmondsKarpIterator();
 	
-	while (stepper->step() != terminator_) {}
-	
-	stepper->step();
+	while (stepper->step() != -1) {}
 	
 	int* parents = stepper->getCurrentRoutes();
 	
@@ -51,9 +49,7 @@ TEST_FIXTURE (Graph, TestIteratorByWidth_getCurrentRoutes) {
 	
 	stepper = initEdmondsKarpIterator();
 	
-	while (stepper->step() != terminator_) {}
-	
-	stepper->step();
+	while (stepper->step() != -1) {}
 	
 	parents = stepper->getCurrentRoutes();
 	
@@ -61,4 +57,7 @@ TEST_FIXTURE (Graph, TestIteratorByWidth_getCurrentRoutes) {
 	CHECK_EQUAL (0, parents[1]);
 	CHECK_EQUAL (1, parents[2]);
 	CHECK_EQUAL (1, parents[3]);
+	
+	delete stepper;
+	delete[] parents;
 }
