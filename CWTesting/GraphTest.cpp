@@ -18,12 +18,16 @@ SUITE (GraphTests) {
 		CHECK_EQUAL(4, matrice_[3][2]);
 	}
 	
-	TEST_FIXTURE (Graph, TestGraph_initEdmondsKarpIterator) {
+	TEST (TestGraph_solve) {
+		Graph* solver = new Graph;
+		solver->input("in.txt");
+		CHECK_EQUAL(12,solver->solve());
+		delete solver;
 		
-	}
-	
-	TEST_FIXTURE (Graph, TestGraph_solve) {
-		
+		solver = new Graph;
+		solver->input("in2.txt");
+		CHECK_EQUAL(5,solver->solve());
+		delete solver;
 	}
 	
 	

@@ -161,61 +161,47 @@ Graph::IteratorByWidth* Graph::initEdmondsKarpIterator() {
 
 
 int Graph::solve() {
-
-}
-
-//
-// FROM HERE ON LIES ITERATOR STUFF
-//
-
-Graph::IteratorByWidth::IteratorByWidth (int length, int** routes, int start) {
-	routes_ = routes;
-	queue_ = new int[length];
-	prev_ = new int[length];
-	visited_ = new bool[length];
+	int flowSum = 0;
+	IteratorByWidth* stepper;
+	bool changeFlag = true;
+	int *parents;
 	
-	length_ = length;
-	
-	
-	for (int i = 0; i < length; i++) {
-		queue_[i] = prev_[i] = -1;
-		visited_[i] = false;
-	}
-	
-	queue_[0] = start;
-}
-
-
-int* Graph::IteratorByWidth::getCurrentRoutes() {
-	int *returnArray = new int[length_];
-	
-	for (int i = 0; i < length_; i++)
-		returnArray[i] = prev_[i];
+	while (changeFlag) {
+		int terminatorPos = -2;
 		
-	return returnArray;
-}
-
-int Graph::IteratorByWidth::step() {
-	current_++;
-	
-	while (current_ < length_ && queue_[queueCurrent_] != -1) {
-		if (routes_[queue_[queueCurrent_]][current_] == 0)
-			current_++;
-		else {
-			if (visited_[current_]) current_++;
-			else {
-				visited_[current_] = true;
-				queue_[queueLength_++] = current_;
-				prev_[current_] = queue_[queueCurrent_];
-				return current_;
+		stepper = initEdmondsKarpIterator();
+		
+		while (terminatorPos != terminator_ && terminatorPos != -1) {
+			terminatorPos = stepper->step();
+		}
+		
+		if (terminatorPos == terminator_) {
+			changeFlag = true;
+			int minFlow = INT_MAX;
+			int currentPos = terminatorPos;
+			parents = stepper->getCurrentRoutes();
+			
+			while (parents[currentPos] != -1) {
+				if (availableConductivity_[parents[currentPos]][currentPos] < minFlow)
+					minFlow = availableConductivity_[parents[currentPos]][currentPos];
+					
+				currentPos = parents[currentPos];
 			}
-		}
+			
+			flowSum += minFlow;
+			currentPos = terminatorPos;
+			
+			while (parents[currentPos] != -1) {
+				availableConductivity_[parents[currentPos]][currentPos] -= minFlow;
+				
+				currentPos = parents[currentPos];
+			}
+			
+			delete[] parents;
+		} else changeFlag = false;
 		
-		if (current_ == length_) {
-			queueCurrent_++;
-			current_ = 0;
-		}
+		delete stepper;
 	}
 	
-	return -1;
+	return flowSum;
 }

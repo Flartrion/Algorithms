@@ -53,9 +53,10 @@ set(CMAKE_LDFLAGS "${CMAKE_LDFLAGS} ")
 
 # Define the CXX sources
 set ( CXX_SRCS
-    ${CMAKE_CURRENT_LIST_DIR}/Graph.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/NodeList.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/GraphIterator.cpp
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/NodeList.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/Graph.cpp
 )
 
 set_source_files_properties(

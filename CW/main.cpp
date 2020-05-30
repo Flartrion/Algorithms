@@ -7,8 +7,13 @@ int main () {
 	
 	try {
 		solver->input ("in.txt");
-//		solver->solve();
-	} catch (std::exception err) {
+		int maxFlow = solver->solve();
+		std::cout << "Through presented flow network maximal flow is: " << maxFlow << '\n';
+	} catch (std::runtime_error err) {
+		std::cout << err.what();
+	} catch (std::invalid_argument err) {
+		std::cout << err.what();
+	} catch (std::out_of_range err) {
 		std::cout << err.what();
 	}
 	

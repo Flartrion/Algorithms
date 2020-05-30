@@ -92,7 +92,8 @@ public:
 	/*!
 	 * \brief Part of Edmonds-Karp algorithm.
 	 * \return prev_ copy
-	 * Will return a copy of prev_ for anything that invoked that method to calculate way back from current position (which was returned by step(), presumably).
+	 * Will return a copy (!) of prev_ for anything that invoked that method to calculate way back from current position (which was returned by step(), presumably).
+	 * Do not forget to delete after being done with it.
 	 */
 	int* getCurrentRoutes();
 };
