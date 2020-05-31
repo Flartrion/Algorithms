@@ -61,3 +61,7 @@ TEST_FIXTURE (Graph, TestIteratorByWidth_getCurrentRoutes) {
 	delete stepper;
 	delete[] parents;
 }
+
+TEST_FIXTURE(Graph, TestIteratorByWidth_incorrectConstructor) {
+	CHECK_THROW(new IteratorByWidth, std::runtime_error);
+}

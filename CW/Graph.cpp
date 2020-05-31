@@ -10,7 +10,7 @@ Graph::Graph() {
 
 
 Graph::~Graph() {
-	if (nodes_) {
+	if (matrice_) {
 		for (int i = 0; i < nodes_->getLength(); i++) {
 			delete[] matrice_[i];
 			delete[] availableConductivity_[i];
@@ -18,8 +18,9 @@ Graph::~Graph() {
 		
 		delete[] matrice_;
 		delete[] availableConductivity_;
-		delete nodes_;
 	}
+	
+	delete nodes_;
 }
 
 
@@ -53,7 +54,7 @@ void Graph::input (std::string inFile) {
 					
 					stage++;
 				} else {
-					throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
+					throw std::invalid_argument ("Graph::input - Provided file is incorrect: unrecognized sybmol after node name!");
 					break;
 				}
 			} else {
@@ -67,49 +68,63 @@ void Graph::input (std::string inFile) {
 		
 		in.close();
 		
-		// Matrices initial setup begin!
-		matriceInit();
-		// Matrices initial setup end!
+		if (terminator_ < 0 || start_ < 0)
+			throw std::invalid_argument ("Graph::input - Provided file is incorrect: flow network has no source and|or drain!");
+		else {
 		
-		in.open (inFile, std::ios::in);
-		
-		while (!in.eof()) { // Now filling in the matrice.
-			if (stage < 2) { // Which nodes those are?
-				in >> tempName;
-				afterChar = in.get();
-				
-				if (afterChar == ' ') {
-					position[stage] = nodes_->find (tempName);
-					stage++;
-				} else {
-					throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
-					break;
-				}
-			} else { // And now to read the number and input it into the matrice.
-				in >> number;
-				afterChar = in.get();
-				
-				if (number >= 0 || afterChar != '\n') {
-					matrice_[position[0]][position[1]] = number;
+			// Matrices initial setup begin!
+			matriceInit();
+			// Matrices initial setup end!
+			
+			in.open (inFile, std::ios::in);
+			
+			while (!in.eof()) { // Now filling in the matrice.
+				if (stage < 2) { // Which nodes those are?
+					in >> tempName;
+					afterChar = in.get();
 					
-					if (matrice_[position[1]][position[0]] && matrice_[position[1]][position[0]] != number)
-						throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
-						
-					stage = 0;
-				} else {
-					throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
-					break;
+					if (afterChar == ' ') {
+						position[stage] = nodes_->find (tempName);
+						stage++;
+					} else {
+						throw std::invalid_argument ("Graph::input - Provided file is incorrect: unrecognized sybmol after node name!");
+						break;
+					}
+				} else { // And now to read the number and input it into the matrice.
+					in >> number;
+					afterChar = in.get();
+					
+					if (in.peek() == '\n') {
+						throw std::invalid_argument ("Graph::input - Provided file is incorrect: encountered an empty line!");
+						break;
+					} else {
+						if (number >= 0 && (afterChar == '\n' || afterChar == -1)) {
+							matrice_[position[0]][position[1]] = number;
+							
+							if (matrice_[position[1]][position[0]] && matrice_[position[1]][position[0]] != number)
+								throw std::invalid_argument ("Graph::input - Provided file is incorrect: two-way edge is asymmetrical!");
+								
+							stage = 0;
+						} else {
+							if (number < 0)
+								throw std::invalid_argument ("Graph::input - Provided file is incorrect: found negative number!");
+							else
+								throw std::invalid_argument ("Graph::input - Provided file is incorrect: unrecognized symbol after number!");
+								
+							break;
+						}
+					}
 				}
 			}
+			
+			in.close();
+			
+			for (int i = 0; i < nodes_->getLength(); i++)
+				for (int j = 0; j < nodes_->getLength(); j++)
+					availableConductivity_[i][j] = matrice_[i][j];
 		}
-		
-		in.close();
-		
-		for (int i = 0; i < nodes_->getLength(); i++)
-			for (int j = 0; j < nodes_->getLength(); j++)
-				availableConductivity_[i][j] = matrice_[i][j];
 	} else {
-		throw std::invalid_argument ("Graph::input - Provided file is incorrect!");
+		throw std::invalid_argument ("Graph::input - Provided file wasn't found!");
 	}
 }
 

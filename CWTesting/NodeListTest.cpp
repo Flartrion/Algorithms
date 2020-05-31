@@ -1,5 +1,6 @@
 #include <unittest++/unittest++.h>
 #include "../CW/NodeList.hpp"
+
 SUITE (NodeListTests) {
 
 	TEST_FIXTURE (NodeList, add) {

@@ -1,0 +1,5 @@
+S O 8
+O K 4
+S K 4
+P K 4
+O P 4
